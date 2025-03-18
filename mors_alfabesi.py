@@ -1,5 +1,7 @@
+from encryption import encrypt_text
+
 # Mors sözlüğü
-mors_dict = {
+morse_dict = {
     'A': '.-', 'B': '-...', 'C': '-.-.', 'D': '-..', 'E': '.',
     'F': '..-.', 'G': '--.', 'H': '....', 'I': '..', 'J': '.---',
     'K': '-.-', 'L': '.-..', 'M': '--', 'N': '-.', 'O': '---',
@@ -10,17 +12,6 @@ mors_dict = {
     '9': '----.', ' ': ' '
 }
 
-
-def encrypt(text):
-    text = text.strip()
-    text = text.upper()
-    mors_code = ""
-    for char in text:
-        if char in mors_dict:
-            mors_code += mors_dict[char] + ' '
-    return mors_code.strip()
-
-
 def decrypt(mors_code):
     mors_code = mors_code.strip()
     morse_words = mors_code.split('  ')
@@ -30,21 +21,19 @@ def decrypt(mors_code):
         morse_characters = morse_word.split(' ')
         word = ""
         for code in morse_characters:
-            for key, value in mors_dict.items():
+            for key, value in morse_dict.items():
                 if code == value:
                     word += key
         text += word + ' '
 
     return text.strip()
 
+text = input("Şifrelenecek metni girin: ")
+print("Morse Kodu:", encrypt_text(text.upper(), morse_dict))
 
-original_text = input("Şifrelemek istediğiniz metini giriniz: ")
-mors_code = encrypt(original_text)
-print("Morse Kodu:", mors_code)
+# decoded_text = decrypt(mors_code)
+# print("Çözülmüş Metin:", decoded_text)
 
-decoded_text = decrypt(mors_code)
-print("Çözülmüş Metin:", decoded_text)
-
-encrypted_text = input("Şifreli metni giriniz: ")
-original_text = decrypt(encrypted_text)
-print("Orjinal metin: ", original_text)
+# encrypted_text = input("Şifreli metni giriniz: ")
+# original_text = decrypt(encrypted_text)
+# print("Orjinal metin: ", original_text)
